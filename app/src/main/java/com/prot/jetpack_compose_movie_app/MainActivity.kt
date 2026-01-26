@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -60,13 +62,25 @@ fun MyApp(content: @Composable () -> Unit) {
 
 
 @Composable
-fun MainContent(){
-    Surface(color = MaterialTheme.colorScheme.background,
-        modifier = Modifier.fillMaxSize()) {
-        Text(text = "Main Content")
-    }
+fun MainContent(
+    movieList: List<String> = listOf("Matrix", "Avatar", "Infinity War")
+) {
+    Surface(
+        color = MaterialTheme.colorScheme.background,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = "Main Content")
 
+            LazyColumn {
+                items(items = movieList) { movie ->
+                    Text(text = movie)
+                }
+            }
+        }
+    }
 }
+
 
 @Preview(showBackground = true)
 @Composable
