@@ -1,9 +1,11 @@
 package com.prot.jetpack_compose_movie_app
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -89,7 +91,9 @@ fun MainContent(
 
             LazyColumn {
                 items(movieList) {
-                    MovieRow(it)
+                    MovieRow(it) { movie ->
+                        Log.d("TAG", "MainContent: $movie")
+                    }
                 }
             }
         }
@@ -97,12 +101,16 @@ fun MainContent(
 }
 
 @Composable
-fun MovieRow(movie: String) {
+fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
-            .height(130.dp),
+            .height(130.dp)
+            .clickable(onClick = {
+                onItemClick(movie)
+            })
+        ,
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
     ) {
