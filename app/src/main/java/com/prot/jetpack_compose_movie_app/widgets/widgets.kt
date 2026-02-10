@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,8 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -29,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +40,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.compose.AsyncImagePainter
 import com.prot.jetpack_compose_movie_app.model.Movie
 
 @Composable
@@ -71,7 +76,9 @@ fun MovieRow(
 
                 AsyncImage(
                     model = movie.images[0],
-                    contentDescription = "Movie Poster"
+                    contentDescription = "Movie Poster",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
                 )
 
                 /*
@@ -99,7 +106,7 @@ fun MovieRow(
                     text = movie.genre,
                     style = MaterialTheme.typography.labelSmall
                 )
-
+ 
                 AnimatedVisibility(visible = expanded) {
                     Column() {
                         Text(
@@ -122,16 +129,33 @@ fun MovieRow(
                                 ) {
                                     append(movie.plot)
                                 }
-                            })
+                            }, modifier = Modifier.padding(6.dp))
+                        HorizontalDivider(modifier = Modifier.padding(3.dp))
+                        Text(
+                            text = "Director: ${movie.director}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text = "Actors: ${movie.actors}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text = "Rating: ${movie.rating}",
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                        Text(
+                            text=movie.images[0]
+                        )
+
                     }
                 }
 
                 Icon(
-                    imageVector = if (expanded) Icons.Filled.KeyboardArrowDown
-                    else Icons.Filled.KeyboardArrowUp,
+                    imageVector = if (expanded) Icons.Filled.KeyboardArrowUp
+                    else Icons.Filled.KeyboardArrowDown,
                     contentDescription = "Down Arrow",
                     modifier = Modifier
-                        .size(5.dp)
+                        .size(25.dp)
                         .clickable {
                             expanded = !expanded
                         },

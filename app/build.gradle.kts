@@ -65,4 +65,5 @@ dependencies {
 
     //  image loading library for Android and Compose Multiplatform
     implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
 }
